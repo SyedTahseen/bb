@@ -72,6 +72,10 @@ async def ai_process_handler(message, prompt, show_prompt=False, cook_mode=False
         for _ in range(3):
             try:
                 response = model.generate_content(input_data)
+
+                if not getattr(response, "candidates", []):
+                    return await message.edit_text("<code>AI could not generate a valid answer. Try again with a clearer prompt or different file.</code>")
+
                 break
             except Exception as e:
                 msg = str(e).lower()
