@@ -63,7 +63,7 @@ async def ai_process_handler(message, prompt, show_prompt=False, cook_mode=False
     await message.edit_text(f"<code>{status_msg}</code>")
 
     # ----------- FIX: REFRESH FILE REFERENCE (minimal change) -----------
-    reply = await message.chat.get_messages(reply.id)
+    reply = await message._client.get_messages(message.chat.id, reply.id)
     # --------------------------------------------------------------------
 
     file_path = await reply.download()
